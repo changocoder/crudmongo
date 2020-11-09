@@ -3,14 +3,13 @@ const mongoose = require("mongoose");
 const bodyParse = require("body-parser");
 const cors = require("cors");
 
-const escuelas = require("./routes/escuela");
+const escuelas = require("./routes/escuela.route");
 const tickets = require("./routes/tickets");
 
 app = express();
 app.use(bodyParse.json());
 app.use(cors());
-const uri =
-  "mongodb+srv://stocklr:factorae@cluster0.o4tuk.mongodb.net/test?retryWrites=true&w=majority;";
+
 mongoose.connect(uri, {
   userNewUrlParser: true,
   useUnifiedTopology: true,
