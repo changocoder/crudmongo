@@ -20,17 +20,25 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  Escuela.create(req.body).then((x) => res.status(201).send(x));
+  const escuela = new Escuela({
+    nombre: req.body.nombre,
+    cue: req.body.cue,
+  });
+  //Escuela.create(req.body).then((x) => res.status(201).send(x));
+  escuela
+    .save()
+    .then((data) => {
+      res.status(201).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating the Note.",
+      });
+    });
 });
 
 router.put("/:id", (req, res) => {
-  Escuela.findOneAndUpdate(req.params.id, req.body).then(() =>
-    res.sendStatus(204)
-  );
-});
-
-router.put("/:id", (req, res) => {
-  Escuela.findOneAndDelete(req.params.id, req.body).then(() =>
+  Escuela.findByIdAndUpdate(req.params.id, req.body).then(() =>
     res.sendStatus(204)
   );
 });
